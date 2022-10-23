@@ -9,6 +9,9 @@ struct Person {
     age: usize,
 }
 
+impl Person {
+}
+
 // We implement the Default trait to use it as a fallback
 // when the provided string is not convertible into a Person object
 impl Default for Person {
@@ -35,13 +38,27 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of Person
 // Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        parse(s).unwrap_or_else(|| Person::default())
     }
+
 }
 
+fn parse(s: &str) -> Option<Person> {
+    let s: Vec<&str> = s.split(',').collect();
+    if s.len() != 2 {
+        return None;
+    }
+    let name = s.get(0)?;
+    if name.len() == 0 {
+        return None;
+    }
+    let age = s.get(1)?;
+    let age = age.parse::<usize>().ok()?;
+    Some(Person { name: name.to_string(), age })
+}
 fn main() {
     // Use the `from` function
     let p1 = Person::from("Mark,20");
