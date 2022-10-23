@@ -949,9 +949,9 @@ https://doc.rust-lang.org/book/ch15-04-rc.html
 [[exercises]]
 name = "cow1"
 path = "exercises/standard_library_types/cow1.rs"
-mode = "compile"
+mode = "test"
 hint = """
-Since the vector is already owned, the `Cow` type doesn't need to clone it.
+If Cow already owns the data it doesn't need to clone it when to_mut() is called.
 
 Checkout https://doc.rust-lang.org/std/borrow/enum.Cow.html for documentation
 on the `Cow` type.
